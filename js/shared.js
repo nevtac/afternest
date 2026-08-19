@@ -1,4 +1,4 @@
-(()=>{const s=document.currentScript;if(!s)return;['hospital-polish.css','mobile-polish.css'].forEach(file=>{const link=document.createElement('link');link.rel='stylesheet';link.href=new URL('../assets/'+file,s.src).href;document.head.appendChild(link)})})();
+(()=>{const s=document.currentScript;if(!s)return;['hospital-polish.css','mobile-polish.css','nonprofit-v2.css'].forEach(file=>{const link=document.createElement('link');link.rel='stylesheet';link.href=new URL('../assets/'+file,s.src).href;document.head.appendChild(link)})})();
 
 const AFTERNEST = {
   caseKey: 'afternest_cases_v1',
@@ -62,44 +62,44 @@ function prettyStatus(status){return ({open:'Needs action',progress:'In progress
 function statusBadge(status){return `<span class="status ${status}">${prettyStatus(status)}</span>`}
 function escapeHtml(value=''){return String(value).replace(/[&<>'"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]))}
 
+const brandLogo=()=>`<svg class="brand-logo" viewBox="0 0 48 48" aria-hidden="true"><rect x="1" y="1" width="46" height="46" rx="14" fill="#173b49"/><path d="M14 23.1 24 14l10 9.1" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M17.2 22.4v8.1h13.6v-8.1" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><path d="M11.5 33c4.4 4.2 20.6 4.2 25 0" fill="none" stroke="#74b8a7" stroke-width="2.7" stroke-linecap="round"/><path d="M15.1 37c4.7 2.7 13.1 2.7 17.8 0" fill="none" stroke="#a9d4c9" stroke-width="2" stroke-linecap="round"/></svg>`;
+const brand=()=>`<span class="brand-word"><span>AfterNest</span><small>San Francisco</small></span>`;
+
 function renderHeader(active=''){
   return `
-  <div class="presentation-bar"><div class="container"><div class="status-copy"><span>Proposed San Francisco pilot</span><span>Non-clinical recovery support</span></div><a href="partner-brief.html">Hospital partner brief →</a></div></div>
+  <div class="presentation-bar"><div class="container"><div class="status-copy"><span>Proposed nonprofit pilot · San Francisco</span><span>Practical support after hospital discharge</span></div><a href="partners.html">For hospital partners →</a></div></div>
   <header class="site-header">
     <div class="container nav-shell">
-      <a class="brand" href="index.html" aria-label="AfterNest home"><span class="brand-mark" aria-hidden="true"></span><span>AfterNest</span></a>
+      <a class="brand" href="index.html" aria-label="AfterNest home">${brandLogo()}${brand()}</a>
       <nav class="site-nav" aria-label="Primary navigation">
-        <a class="${active==='program'?'active':''}" href="program.html">Program</a>
-        <a class="${active==='partners'?'active':''}" href="partners.html">Hospital partners</a>
-        <a class="${active==='impact'?'active':''}" href="impact.html">Pilot outcomes</a>
-        <a class="${active==='team'?'active':''}" href="team.html">Governance</a>
-        <a class="${active==='volunteer'?'active':''}" href="volunteer.html">Navigators</a>
+        <a class="${active==='program'?'active':''}" href="program.html">How it works</a>
+        <a href="index.html#who">Who we serve</a>
+        <a class="${active==='volunteer'?'active':''}" href="volunteer.html">Volunteer</a>
+        <a class="${active==='partners'?'active':''}" href="partners.html">For hospitals</a>
+        <a class="${active==='team'?'active':''}" href="team.html">Our team</a>
       </nav>
-      <div class="nav-actions">
-        <a class="button secondary small-btn" href="workspace.html">View operations</a>
-        <a class="button primary small-btn" href="partners.html#pilot">Review pilot model</a>
-      </div>
+      <div class="nav-actions"><a class="button primary small-btn volunteer-nav" href="volunteer.html#apply">Become a Navigator</a></div>
       <button class="mobile-menu-button" type="button" aria-label="Open menu" aria-controls="mobile-drawer" aria-expanded="false"><span></span></button>
     </div>
   </header>`;
 }
-function renderMobileDrawer(){return `<div class="mobile-drawer" id="mobile-drawer" aria-hidden="true"><div class="mobile-drawer-panel"><div class="mobile-drawer-top"><a class="brand" href="index.html"><span class="brand-mark"></span><span>AfterNest</span></a><button class="mobile-drawer-close" type="button" aria-label="Close menu">×</button></div><nav class="mobile-drawer-links" aria-label="Mobile navigation"><a href="program.html">Program</a><a href="partners.html">Hospital partners</a><a href="impact.html">Pilot outcomes</a><a href="team.html">Governance</a><a href="volunteer.html">Recovery Navigators</a><a href="workspace.html">Operations demo</a><a href="privacy.html">Privacy & scope</a></nav><div class="mobile-drawer-actions"><a class="button primary" href="partners.html#pilot">Review pilot model</a><a class="button secondary" href="intake.html">Walk through referral</a></div><p class="mobile-drawer-note">Proposed academic pilot concept. No hospital partnership or clinical outcome is represented as confirmed.</p></div></div>`}
-function renderMobileBottomCTA(){return `<div class="mobile-bottom-cta" aria-label="Quick actions"><a class="button secondary" href="workspace.html">Operations</a><a class="button primary" href="partners.html#pilot">Pilot model</a></div>`}
+function renderMobileDrawer(){return `<div class="mobile-drawer" id="mobile-drawer" aria-hidden="true"><div class="mobile-drawer-panel"><div class="mobile-drawer-top"><a class="brand" href="index.html">${brandLogo()}${brand()}</a><button class="mobile-drawer-close" type="button" aria-label="Close menu">×</button></div><nav class="mobile-drawer-links" aria-label="Mobile navigation"><a href="program.html">How it works</a><a href="index.html#who">Who we serve</a><a href="volunteer.html">Volunteer</a><a href="partners.html">For hospitals</a><a href="team.html">Our team</a><a href="impact.html">Pilot outcomes</a><a href="privacy.html">Privacy & scope</a></nav><div class="mobile-drawer-actions"><a class="button primary" href="volunteer.html#apply">Become a Recovery Navigator</a><a class="button secondary" href="partners.html">Explore hospital partnership</a></div><p class="mobile-drawer-note">Proposed academic nonprofit pilot. No hospital partnership, tax-exempt status, or clinical outcome is represented as confirmed.</p></div></div>`}
+function renderMobileBottomCTA(){return `<div class="mobile-bottom-cta" aria-label="Quick actions"><a class="button secondary" href="program.html">How it works</a><a class="button primary" href="volunteer.html#apply">Volunteer</a></div>`}
 function renderFooter(){
   return `
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
-        <div><a class="brand" href="index.html"><span class="brand-mark"></span><span>AfterNest</span></a><p style="margin-top:16px">A proposed hospital-linked nonprofit program focused on practical recovery execution after discharge.</p></div>
-        <div class="footer-links"><b>Program</b><a href="program.html">Program model</a><a href="intake.html">Referral workflow</a><a href="workspace.html">Operations demo</a><a href="impact.html">Pilot outcomes</a><a href="training.html">Navigator standards</a></div>
-        <div class="footer-links"><b>Organization</b><a href="partners.html">Hospital partners</a><a href="team.html">Governance</a><a href="roadmap.html">Pilot roadmap</a><a href="partner-brief.html">Partner brief</a><a href="privacy.html">Privacy & scope</a></div>
+        <div><a class="brand" href="index.html">${brandLogo()}${brand()}</a><p style="margin-top:16px">A proposed nonprofit program helping older and vulnerable adults work through practical, non-clinical barriers after hospital discharge.</p></div>
+        <div class="footer-links"><b>Get involved</b><a href="volunteer.html">Become a Recovery Navigator</a><a href="partners.html">Hospital partnership</a><a href="sponsor-brief.html">Funder brief</a><a href="team.html">Our team</a></div>
+        <div class="footer-links"><b>Program</b><a href="program.html">How AfterNest works</a><a href="intake.html">Referral walkthrough</a><a href="training.html">Navigator standards</a><a href="impact.html">Pilot outcomes</a><a href="privacy.html">Privacy & scope</a></div>
       </div>
-      <div class="footer-bottom"><span>AfterNest · proposed pilot concept · San Francisco</span><span>Academic prototype for partner discussion. No hospital relationship or clinical outcome is represented as confirmed.</span></div>
+      <div class="footer-bottom"><span>AfterNest · proposed San Francisco nonprofit pilot</span><span>Academic prototype for partner discussion. No hospital relationship, 501(c)(3) status, or clinical outcome is represented as confirmed.</span></div>
     </div>
   </footer>`;
 }
 function mountChrome(){const active=document.body.dataset.page||'';const header=document.getElementById('site-header');if(header)header.innerHTML=renderHeader(active);const footer=document.getElementById('site-footer');if(footer)footer.innerHTML=renderFooter();document.body.insertAdjacentHTML('beforeend',renderMobileDrawer()+renderMobileBottomCTA())}
 function initMobileNavigation(){const trigger=document.querySelector('.mobile-menu-button');const drawer=document.querySelector('.mobile-drawer');const close=document.querySelector('.mobile-drawer-close');if(!trigger||!drawer)return;const setOpen=open=>{trigger.setAttribute('aria-expanded',String(open));drawer.setAttribute('aria-hidden',String(!open));drawer.classList.toggle('open',open);document.body.style.overflow=open?'hidden':''};trigger.addEventListener('click',()=>setOpen(true));close?.addEventListener('click',()=>setOpen(false));drawer.addEventListener('click',e=>{if(e.target===drawer)setOpen(false)});drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setOpen(false)));document.addEventListener('keydown',e=>{if(e.key==='Escape')setOpen(false)})}
-function initRevealMotion(){if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;const targets=[...document.querySelectorAll('main > section, .card, .flow-step, .readiness-card, .team-card, .art-tile, .editorial-art')];targets.forEach((el,i)=>{if(el.closest('.hero-ui'))return;el.classList.add('reveal');if(i%4===1)el.classList.add('reveal-delay-1');if(i%4===2)el.classList.add('reveal-delay-2')});const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');observer.unobserve(entry.target)}}),{threshold:.08,rootMargin:'0px 0px -40px'});targets.forEach(el=>observer.observe(el))}
+function initRevealMotion(){if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;const targets=[...document.querySelectorAll('main > section, .card, .flow-step, .readiness-card, .team-card, .art-tile, .editorial-art, .gap-card, .home-step, .audience-card, .volunteer-fact')];targets.forEach((el,i)=>{if(el.closest('.hero-ui'))return;el.classList.add('reveal');if(i%4===1)el.classList.add('reveal-delay-1');if(i%4===2)el.classList.add('reveal-delay-2')});const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');observer.unobserve(entry.target)}}),{threshold:.08,rootMargin:'0px 0px -40px'});targets.forEach(el=>observer.observe(el))}
 function initInterestForms(){document.querySelectorAll('[data-interest-form]').forEach(form=>{form.addEventListener('submit',e=>{e.preventDefault();const data=Object.fromEntries(new FormData(form));const items=getInterests();items.push({...data,id:`IN-${Date.now()}`,created:new Date().toISOString(),demo:true});saveInterests(items);const out=form.querySelector('[data-form-message]');if(out)out.innerHTML='<div class="notice safe">Demo submission recorded in this browser. A production launch would route this through a secure, partner-approved backend.</div>';form.reset()})})}
 document.addEventListener('DOMContentLoaded',()=>{mountChrome();initMobileNavigation();initRevealMotion();initInterestForms()});

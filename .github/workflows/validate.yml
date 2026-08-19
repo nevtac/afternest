@@ -1,0 +1,76 @@
+name: Validate AfterNest site
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Check JavaScript syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          for file in js/*.js; do
+            node --check "$file"
+          done
+
+      - name: Check local HTML links and assets
+        shell: python
+        run: |
+          from html.parser import HTMLParser
+          from pathlib import Path
+          from urllib.parse import urlparse
+          import sys
+
+          root = Path('.')
+          failures = []
+
+          class Parser(HTMLParser):
+              def __init__(self, source):
+                  super().__init__()
+                  self.source = source
+              def handle_starttag(self, tag, attrs):
+                  attrs = dict(attrs)
+                  for key in ('href', 'src'):
+                      value = attrs.get(key)
+                      if not value:
+                          continue
+                      if value.startswith(('#', 'mailto:', 'tel:', 'data:', 'javascript:')):
+                          continue
+                      parsed = urlparse(value)
+                      if parsed.scheme or parsed.netloc:
+                          continue
+                      path = parsed.path
+                      if not path:
+                          continue
+                      target = root / path.lstrip('/') if path.startswith('/') else self.source.parent / path
+                      if not target.exists():
+                          failures.append(f'{self.source}: {key}="{value}" -> missing {target}')
+
+          for html in root.glob('*.html'):
+              parser = Parser(html)
+              parser.feed(html.read_text(encoding='utf-8'))
+
+          if failures:
+              print('\n'.join(failures))
+              sys.exit(1)
+          print('All local HTML links and assets resolve.')
+
+      - name: Check prototype guardrails
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -q "proposed" README.md
+          grep -q "Do not enter real patient information" README.md
+          grep -q "Recovery Navigator" volunteer.html
+          grep -q "non-clinical" program.html
