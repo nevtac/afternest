@@ -1,4 +1,4 @@
-(()=>{const s=document.currentScript;if(!s)return;const link=document.createElement('link');link.rel='stylesheet';link.href=new URL('../assets/hospital-polish.css',s.src).href;document.head.appendChild(link)})();
+(()=>{const s=document.currentScript;if(!s)return;['hospital-polish.css','mobile-polish.css'].forEach(file=>{const link=document.createElement('link');link.rel='stylesheet';link.href=new URL('../assets/'+file,s.src).href;document.head.appendChild(link)})})();
 
 const AFTERNEST = {
   caseKey: 'afternest_cases_v1',
@@ -79,9 +79,12 @@ function renderHeader(active=''){
         <a class="button secondary small-btn" href="workspace.html">View operations</a>
         <a class="button primary small-btn" href="partners.html#pilot">Review pilot model</a>
       </div>
+      <button class="mobile-menu-button" type="button" aria-label="Open menu" aria-controls="mobile-drawer" aria-expanded="false"><span></span></button>
     </div>
   </header>`;
 }
+function renderMobileDrawer(){return `<div class="mobile-drawer" id="mobile-drawer" aria-hidden="true"><div class="mobile-drawer-panel"><div class="mobile-drawer-top"><a class="brand" href="index.html"><span class="brand-mark"></span><span>AfterNest</span></a><button class="mobile-drawer-close" type="button" aria-label="Close menu">×</button></div><nav class="mobile-drawer-links" aria-label="Mobile navigation"><a href="program.html">Program</a><a href="partners.html">Hospital partners</a><a href="impact.html">Pilot outcomes</a><a href="team.html">Governance</a><a href="volunteer.html">Recovery Navigators</a><a href="workspace.html">Operations demo</a><a href="privacy.html">Privacy & scope</a></nav><div class="mobile-drawer-actions"><a class="button primary" href="partners.html#pilot">Review pilot model</a><a class="button secondary" href="intake.html">Walk through referral</a></div><p class="mobile-drawer-note">Proposed academic pilot concept. No hospital partnership or clinical outcome is represented as confirmed.</p></div></div>`}
+function renderMobileBottomCTA(){return `<div class="mobile-bottom-cta" aria-label="Quick actions"><a class="button secondary" href="workspace.html">Operations</a><a class="button primary" href="partners.html#pilot">Pilot model</a></div>`}
 function renderFooter(){
   return `
   <footer class="site-footer">
@@ -95,6 +98,8 @@ function renderFooter(){
     </div>
   </footer>`;
 }
-function mountChrome(){const active=document.body.dataset.page||'';const header=document.getElementById('site-header');if(header)header.innerHTML=renderHeader(active);const footer=document.getElementById('site-footer');if(footer)footer.innerHTML=renderFooter()}
+function mountChrome(){const active=document.body.dataset.page||'';const header=document.getElementById('site-header');if(header)header.innerHTML=renderHeader(active);const footer=document.getElementById('site-footer');if(footer)footer.innerHTML=renderFooter();document.body.insertAdjacentHTML('beforeend',renderMobileDrawer()+renderMobileBottomCTA())}
+function initMobileNavigation(){const trigger=document.querySelector('.mobile-menu-button');const drawer=document.querySelector('.mobile-drawer');const close=document.querySelector('.mobile-drawer-close');if(!trigger||!drawer)return;const setOpen=open=>{trigger.setAttribute('aria-expanded',String(open));drawer.setAttribute('aria-hidden',String(!open));drawer.classList.toggle('open',open);document.body.style.overflow=open?'hidden':''};trigger.addEventListener('click',()=>setOpen(true));close?.addEventListener('click',()=>setOpen(false));drawer.addEventListener('click',e=>{if(e.target===drawer)setOpen(false)});drawer.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setOpen(false)));document.addEventListener('keydown',e=>{if(e.key==='Escape')setOpen(false)})}
+function initRevealMotion(){if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;const targets=[...document.querySelectorAll('main > section, .card, .flow-step, .readiness-card, .team-card, .art-tile, .editorial-art')];targets.forEach((el,i)=>{if(el.closest('.hero-ui'))return;el.classList.add('reveal');if(i%4===1)el.classList.add('reveal-delay-1');if(i%4===2)el.classList.add('reveal-delay-2')});const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');observer.unobserve(entry.target)}}),{threshold:.08,rootMargin:'0px 0px -40px'});targets.forEach(el=>observer.observe(el))}
 function initInterestForms(){document.querySelectorAll('[data-interest-form]').forEach(form=>{form.addEventListener('submit',e=>{e.preventDefault();const data=Object.fromEntries(new FormData(form));const items=getInterests();items.push({...data,id:`IN-${Date.now()}`,created:new Date().toISOString(),demo:true});saveInterests(items);const out=form.querySelector('[data-form-message]');if(out)out.innerHTML='<div class="notice safe">Demo submission recorded in this browser. A production launch would route this through a secure, partner-approved backend.</div>';form.reset()})})}
-document.addEventListener('DOMContentLoaded',()=>{mountChrome();initInterestForms()});
+document.addEventListener('DOMContentLoaded',()=>{mountChrome();initMobileNavigation();initRevealMotion();initInterestForms()});
