@@ -1,0 +1,3 @@
+# Homepage v4 release notes
+
+The public homepage has been rebuilt to closely match the approved AfterNest nonprofit mockup. The update prioritizes human service storytelling, volunteer recruitment, clear explanation of the transportation/technology/navigation gap, practical service examples, and a calmer hospital-adjacent visual system. The underlying referral, Navigator, training, privacy, and pilot-outcome prototype remains unchanged.
