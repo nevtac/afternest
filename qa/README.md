@@ -1,0 +1,1 @@
+Hospital-ready presentation pass. Review the homepage, hospital pilot model, operations workspace, outcomes dashboard, governance page, and executive partner brief before release.
