@@ -1,0 +1,2 @@
+Deploy trigger for AfterNest premium v5 production release.
+Target commit contents include the v5 homepage, higher-resolution hero imagery, mobile UX polish, volunteer emphasis, and current pilot prototype pages.
