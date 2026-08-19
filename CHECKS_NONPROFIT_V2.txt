@@ -1,0 +1,12 @@
+Refinement branch: refine/nonprofit-v2
+Base: main
+
+Manual static checks completed:
+- New navigation points only to existing repository pages/anchors.
+- Homepage contains no local image dependencies.
+- Existing data keys and demo workflow functions remain unchanged.
+- Volunteer form keeps id=volunteer-form for js/volunteer.js.
+- Hospital interest form keeps data-interest-form for js/shared.js.
+- Operations page keeps existing workspace DOM ids used by js/workspace.js.
+- New global stylesheet loads last from js/shared.js.
+- Mobile and reduced-motion behavior included in nonprofit-v2.css.
