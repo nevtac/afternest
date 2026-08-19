@@ -1,0 +1,1 @@
+High-resolution homepage media is delivered as text-safe base64 chunks for the static prototype. The v4 loader assembles the tablet image at runtime. Supporting bus, transition, and volunteer images continue to use the stable existing media modules while the redesigned layout displays them at controlled sizes.

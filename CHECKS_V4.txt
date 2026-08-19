@@ -1,0 +1,10 @@
+Homepage v4 checklist
+- Approved nonprofit mockup structure implemented
+- Hero copy kept concise
+- Higher-resolution tablet image loader added
+- Transportation bus visible in support examples
+- Volunteer recruitment promoted to major homepage section
+- Hospital/sponsor CTA retained
+- Black placeholder icons replaced with SVG line icons
+- Responsive CSS included
+- Prototype/partnership disclaimers retained
