@@ -1,0 +1,2 @@
+Hospital-ready polish release candidate.
+Primary review routes: /, /partners.html#pilot, /workspace.html, /impact.html, /team.html, /partner-brief.html
