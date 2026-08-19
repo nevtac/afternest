@@ -1,3 +1,5 @@
+(()=>{const s=document.currentScript;if(!s)return;const link=document.createElement('link');link.rel='stylesheet';link.href=new URL('../assets/hospital-polish.css',s.src).href;document.head.appendChild(link)})();
+
 const AFTERNEST = {
   caseKey: 'afternest_cases_v1',
   volunteerKey: 'afternest_volunteers_v1',
@@ -47,9 +49,7 @@ const AFTERNEST = {
   ]
 };
 
-function safeParse(value, fallback){
-  try{return JSON.parse(value) ?? fallback}catch{return fallback}
-}
+function safeParse(value, fallback){try{return JSON.parse(value) ?? fallback}catch{return fallback}}
 function getLocalCases(){return safeParse(localStorage.getItem(AFTERNEST.caseKey),[])}
 function saveLocalCases(cases){localStorage.setItem(AFTERNEST.caseKey,JSON.stringify(cases))}
 function getAllCases(){return [...AFTERNEST.seedCases, ...getLocalCases()]}
@@ -57,31 +57,27 @@ function getVolunteers(){return safeParse(localStorage.getItem(AFTERNEST.volunte
 function saveVolunteers(items){localStorage.setItem(AFTERNEST.volunteerKey,JSON.stringify(items))}
 function getInterests(){return safeParse(localStorage.getItem(AFTERNEST.interestKey),[])}
 function saveInterests(items){localStorage.setItem(AFTERNEST.interestKey,JSON.stringify(items))}
-function nextCaseId(){
-  const all=getAllCases().map(c=>parseInt(String(c.id).replace(/\D/g,''),10)).filter(Boolean);
-  return `AN-${Math.max(1053,...all)+1}`;
-}
+function nextCaseId(){const all=getAllCases().map(c=>parseInt(String(c.id).replace(/\D/g,''),10)).filter(Boolean);return `AN-${Math.max(1053,...all)+1}`}
 function prettyStatus(status){return ({open:'Needs action',progress:'In progress',resolved:'Resolved',escalated:'Escalated',review:'Needs review'})[status]||status}
 function statusBadge(status){return `<span class="status ${status}">${prettyStatus(status)}</span>`}
-function escapeHtml(value=''){
-  return String(value).replace(/[&<>'"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
-}
+function escapeHtml(value=''){return String(value).replace(/[&<>'"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]))}
 
 function renderHeader(active=''){
   return `
+  <div class="presentation-bar"><div class="container"><div class="status-copy"><span>Proposed San Francisco pilot</span><span>Non-clinical recovery support</span></div><a href="partner-brief.html">Hospital partner brief →</a></div></div>
   <header class="site-header">
     <div class="container nav-shell">
       <a class="brand" href="index.html" aria-label="AfterNest home"><span class="brand-mark" aria-hidden="true"></span><span>AfterNest</span></a>
       <nav class="site-nav" aria-label="Primary navigation">
         <a class="${active==='program'?'active':''}" href="program.html">Program</a>
-        <a class="${active==='partners'?'active':''}" href="partners.html">Hospitals & sponsors</a>
-        <a class="${active==='volunteer'?'active':''}" href="volunteer.html">Volunteer</a>
-        <a class="${active==='impact'?'active':''}" href="impact.html">Pilot impact</a>
-        <a class="${active==='team'?'active':''}" href="team.html">Team</a>
+        <a class="${active==='partners'?'active':''}" href="partners.html">Hospital partners</a>
+        <a class="${active==='impact'?'active':''}" href="impact.html">Pilot outcomes</a>
+        <a class="${active==='team'?'active':''}" href="team.html">Governance</a>
+        <a class="${active==='volunteer'?'active':''}" href="volunteer.html">Navigators</a>
       </nav>
       <div class="nav-actions">
-        <a class="button secondary small-btn" href="workspace.html">Demo workspace</a>
-        <a class="button primary small-btn" href="intake.html">Refer a patient</a>
+        <a class="button secondary small-btn" href="workspace.html">View operations</a>
+        <a class="button primary small-btn" href="partners.html#pilot">Review pilot model</a>
       </div>
     </div>
   </header>`;
@@ -91,31 +87,14 @@ function renderFooter(){
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
-        <div><a class="brand" href="index.html"><span class="brand-mark"></span><span>AfterNest</span></a><p style="margin-top:16px">A proposed nonprofit recovery support program helping vulnerable patients address practical barriers between hospital discharge and recovery at home.</p></div>
-        <div class="footer-links"><b>Program</b><a href="program.html">How it works</a><a href="intake.html">Referral intake</a><a href="volunteer.html">Recovery Navigators</a><a href="resources.html">Resource directory</a><a href="training.html">Navigator handbook</a></div>
-        <div class="footer-links"><b>Organization</b><a href="partners.html">Hospitals & sponsors</a><a href="team.html">Team & governance</a><a href="impact.html">Pilot impact</a><a href="roadmap.html">Pilot roadmap</a><a href="partner-brief.html">Partner brief</a><a href="privacy.html">Privacy & scope</a></div>
+        <div><a class="brand" href="index.html"><span class="brand-mark"></span><span>AfterNest</span></a><p style="margin-top:16px">A proposed hospital-linked nonprofit program focused on practical recovery execution after discharge.</p></div>
+        <div class="footer-links"><b>Program</b><a href="program.html">Program model</a><a href="intake.html">Referral workflow</a><a href="workspace.html">Operations demo</a><a href="impact.html">Pilot outcomes</a><a href="training.html">Navigator standards</a></div>
+        <div class="footer-links"><b>Organization</b><a href="partners.html">Hospital partners</a><a href="team.html">Governance</a><a href="roadmap.html">Pilot roadmap</a><a href="partner-brief.html">Partner brief</a><a href="privacy.html">Privacy & scope</a></div>
       </div>
-      <div class="footer-bottom"><span>AfterNest academic pilot prototype · Team Big Brains · MGMT 3538</span><span>Prototype only. Not medical care. Do not enter diagnoses, medications, symptoms, or other sensitive medical information.</span></div>
+      <div class="footer-bottom"><span>AfterNest · proposed pilot concept · San Francisco</span><span>Academic prototype for partner discussion. No hospital relationship or clinical outcome is represented as confirmed.</span></div>
     </div>
   </footer>`;
 }
-function mountChrome(){
-  const active=document.body.dataset.page||'';
-  const header=document.getElementById('site-header'); if(header) header.innerHTML=renderHeader(active);
-  const footer=document.getElementById('site-footer'); if(footer) footer.innerHTML=renderFooter();
-}
-function initInterestForms(){
-  document.querySelectorAll('[data-interest-form]').forEach(form=>{
-    form.addEventListener('submit',e=>{
-      e.preventDefault();
-      const data=Object.fromEntries(new FormData(form));
-      const items=getInterests();
-      items.push({...data,id:`IN-${Date.now()}`,created:new Date().toISOString(),demo:true});
-      saveInterests(items);
-      const out=form.querySelector('[data-form-message]');
-      if(out) out.innerHTML='<div class="notice safe">Demo submission recorded in this browser. A production launch would route this to the AfterNest team through a secure backend.</div>';
-      form.reset();
-    })
-  })
-}
+function mountChrome(){const active=document.body.dataset.page||'';const header=document.getElementById('site-header');if(header)header.innerHTML=renderHeader(active);const footer=document.getElementById('site-footer');if(footer)footer.innerHTML=renderFooter()}
+function initInterestForms(){document.querySelectorAll('[data-interest-form]').forEach(form=>{form.addEventListener('submit',e=>{e.preventDefault();const data=Object.fromEntries(new FormData(form));const items=getInterests();items.push({...data,id:`IN-${Date.now()}`,created:new Date().toISOString(),demo:true});saveInterests(items);const out=form.querySelector('[data-form-message]');if(out)out.innerHTML='<div class="notice safe">Demo submission recorded in this browser. A production launch would route this through a secure, partner-approved backend.</div>';form.reset()})})}
 document.addEventListener('DOMContentLoaded',()=>{mountChrome();initInterestForms()});
