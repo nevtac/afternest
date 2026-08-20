@@ -1,4 +1,4 @@
-(()=>{const s=document.currentScript;if(!s)return;['hospital-polish.css','mobile-polish.css','nonprofit-v2.css'].forEach(file=>{const link=document.createElement('link');link.rel='stylesheet';link.href=new URL('../assets/'+file,s.src).href;document.head.appendChild(link)})})();
+(()=>{const s=document.currentScript;if(!s)return;['hospital-polish.css','mobile-polish.css','nonprofit-v2.css','ux-v7.css'].forEach(file=>{const link=document.createElement('link');link.rel='stylesheet';link.href=new URL('../assets/'+file,s.src).href;document.head.appendChild(link)})})();
 
 const AFTERNEST = {
   caseKey: 'afternest_cases_v1',
