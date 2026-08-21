@@ -83,18 +83,18 @@ function renderHeader(active=''){
     </div>
   </header>`;
 }
-function renderMobileDrawer(){return `<div class="mobile-drawer" id="mobile-drawer" aria-hidden="true"><div class="mobile-drawer-panel"><div class="mobile-drawer-top"><a class="brand" href="index.html">${brandLogo()}${brand()}</a><button class="mobile-drawer-close" type="button" aria-label="Close menu">×</button></div><nav class="mobile-drawer-links" aria-label="Mobile navigation"><a href="program.html">How it works</a><a href="index.html#who">Who we serve</a><a href="volunteer.html">Volunteer</a><a href="partners.html">For hospitals</a><a href="team.html">Our team</a><a href="impact.html">Pilot outcomes</a><a href="privacy.html">Privacy & scope</a></nav><div class="mobile-drawer-actions"><a class="button primary" href="volunteer.html#apply">Become a Recovery Navigator</a><a class="button secondary" href="partners.html">Explore hospital partnership</a></div><p class="mobile-drawer-note">Proposed academic nonprofit pilot. No hospital partnership, tax-exempt status, or clinical outcome is represented as confirmed.</p></div></div>`}
+function renderMobileDrawer(){return `<div class="mobile-drawer" id="mobile-drawer" aria-hidden="true"><div class="mobile-drawer-panel"><div class="mobile-drawer-top"><a class="brand" href="index.html">${brandLogo()}${brand()}</a><button class="mobile-drawer-close" type="button" aria-label="Close menu">×</button></div><nav class="mobile-drawer-links" aria-label="Mobile navigation"><a href="program.html">How it works</a><a href="index.html#who">Who we serve</a><a href="volunteer.html">Volunteer</a><a href="partners.html">For hospitals</a><a href="team.html">Our team</a><a href="impact.html">Pilot outcomes</a><a href="privacy.html">Privacy & scope</a></nav><div class="mobile-drawer-actions"><a class="button primary" href="volunteer.html#apply">Become a Recovery Navigator</a><a class="button secondary" href="partners.html">Explore hospital partnership</a></div><p class="mobile-drawer-note">Proposed academic nonprofit pilot. No hospital partnership, tax-exempt status, sponsorship, or clinical outcome is represented as confirmed.</p></div></div>`}
 function renderMobileBottomCTA(){return `<div class="mobile-bottom-cta" aria-label="Quick actions"><a class="button secondary" href="program.html">How it works</a><a class="button primary" href="volunteer.html#apply">Volunteer</a></div>`}
 function renderFooter(){
   return `
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
-        <div><a class="brand" href="index.html">${brandLogo()}${brand()}</a><p style="margin-top:16px">A proposed nonprofit program helping older and vulnerable adults work through practical, non-clinical barriers after hospital discharge.</p></div>
+        <div><a class="brand" href="index.html">${brandLogo()}${brand()}</a><p style="margin-top:16px">A proposed nonprofit recovery-support pilot for vulnerable patients leaving the hospital without enough practical help at home.</p></div>
         <div class="footer-links"><b>Get involved</b><a href="volunteer.html">Become a Recovery Navigator</a><a href="partners.html">Hospital partnership</a><a href="sponsor-brief.html">Funder brief</a><a href="team.html">Our team</a></div>
         <div class="footer-links"><b>Program</b><a href="program.html">How AfterNest works</a><a href="intake.html">Referral walkthrough</a><a href="training.html">Navigator standards</a><a href="impact.html">Pilot outcomes</a><a href="privacy.html">Privacy & scope</a></div>
       </div>
-      <div class="footer-bottom"><span>AfterNest · proposed San Francisco nonprofit pilot</span><span>Academic prototype for partner discussion. No hospital relationship, 501(c)(3) status, or clinical outcome is represented as confirmed.</span></div>
+      <div class="footer-bottom"><span>AfterNest · proposed San Francisco nonprofit pilot</span><span>Academic prototype for partner discussion. No hospital relationship, 501(c)(3) status, sponsorship, or clinical outcome is represented as confirmed.</span></div>
     </div>
   </footer>`;
 }
